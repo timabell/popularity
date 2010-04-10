@@ -1,5 +1,8 @@
 <?php
 	$packages = $_POST['installed-package-list'];
+	if ($packages == "") {
+		die("no data submitted");
+	}
 	//i know you could get 2 uploads in the same second and clobber the file, but
 	//i don't care, because it's only for a rough idea of install base :-)'
 	$name = "submissions/packages".time().".txt";
