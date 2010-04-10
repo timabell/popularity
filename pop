@@ -13,4 +13,17 @@
 #    You should have received a copy of the GNU General Public License
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+import subprocess, urllib
 
+def run():
+	print 'reading package list from opkg'
+	p = subprocess.Popen(['/usr/bin/opkg', 'list-installed'], stdout=subprocess.PIPE)
+	packages = p.communicate()[0]
+	print len(packages)
+	print 'posting to submission url'
+	formData = urllib.urlencode({"installed-package-list" : packages})
+	f = urllib.urlopen("http://192.168.0.200/~tim/pop/popularity.php", formData)
+	print 'done'
+
+if __name__ == "__main__":
+	run()
